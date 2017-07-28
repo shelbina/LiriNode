@@ -8,6 +8,6 @@ exports.twitterKeys = {
 };
 
 exports.spotifyKeys = {
-  SPOTIFY_CLIENT_ID: '59ae9458a20e4fcabdfc5e2df209aff1',
-  SPOTIFY_CLIENT_SECRET: 'f448a396138740e183e0b8e8a5539e33',
+  SPOTIFY_CLIENT_ID:'59ae9458a20e4fcabdfc5e2df209aff1',
+  SPOTIFY_CLIENT_SECRET:'f448a396138740e183e0b8e8a5539e33',
 };

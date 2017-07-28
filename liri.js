@@ -77,8 +77,8 @@ function myTweets(){
 	};
 ///install npm spotify keys
 var spotify = new Spotify({
-  spotify_id:'keys.spotifyKeys.SPOTIFY_CLIENT_ID',
-  spotify_secret:'keys.spotifyKeys.SPOTIFY_CLIENT_SECRET',
+  id:'keys.spotifyKeys.SPOTIFY_CLIENT_ID',
+  secret:'keys.spotifyKeys.SPOTIFY_CLIENT_SECRET',
 });
 ///spotify-this-song  show song info in terminal/bash artist, 
 ///song name, preview link from spotify, song album, if no song default to "The Sign by Ace of Base"
