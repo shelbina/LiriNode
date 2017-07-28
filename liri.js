@@ -55,10 +55,10 @@ function myTweets(){
   ///if no movie is typed in  output data for Mr. Nobody
 	function movieThis(){
 		var movie = process.argv[3];
-		if(!movie){
+		if(movie === undefined){
 			movie = "Mr. Nobody";
 		}
-		request("http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&r=json&tomatoes=true", function (error, response, body) {
+		request("http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&r=json&tomatoes=true&apikey=40e9cece", function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 						movie = JSON.parse(body);
 						console.log("Movie Title: " + movie.Title);
@@ -69,48 +69,46 @@ function myTweets(){
 						console.log("Language(s): " + movie.Language);
 						console.log("Plot: " + movie.Plot);
 						console.log("Starring: " + movie.Actors);
-				console.log(movieResults);
-				log(movieResults); // calling log function
 			} else {
 				console.log("Error :"+ error);
 				return;
 			}
 		});
 	};
-///install npm spotify keys
-var spotify = new Spotify({
-  spotify_id:'keys.spotifyKeys.SPOTIFY_CLIENT_ID',
-  spotify_secret:'keys.spotifyKeys.SPOTIFY_CLIENT_SECRET',
-});
-///spotify-this-song  show song info in terminal/bash artist, 
-///song name, preview link from spotify, song album, if no song default to "The Sign by Ace of Base"
-	function spotifyThisSong(songName) {
-		var songName = process.argv[3];
-		if(!songName){
-			songName = "The Sign";
-		}
-		params = songName;
-		spotify.search({ type: "track", query: params }, function(err, data) {
-			if(!err){
-				var songInfo = data.tracks.items;
-				for (var i = 0; i < 5; i++) {
-					if (songInfo[i] != undefined) {
-						var spotifyResults =
-						"Artist: " + songInfo[i].artists[0].name + "\r\n" +
-						"Song: " + songInfo[i].name + "\r\n" +
-						"Album the song is from: " + songInfo[i].album.name + "\r\n" +
-						"Preview Url: " + songInfo[i].preview_url + "\r\n" + 
-						"------------------------------ " + i + " ------------------------------" + "\r\n";
-						console.log(spotifyResults);
-						log(spotifyResults); // calling log function
-					}
-				}
-			}	else {
-				console.log("Error :"+ err);
-				return;
-			}
-		});
-	};
+// ///install npm spotify keys
+// var spotify = new Spotify({
+//   spotify_id:'keys.spotifyKeys.SPOTIFY_CLIENT_ID',
+//   spotify_secret:'keys.spotifyKeys.SPOTIFY_CLIENT_SECRET',
+// });
+// ///spotify-this-song  show song info in terminal/bash artist, 
+// ///song name, preview link from spotify, song album, if no song default to "The Sign by Ace of Base"
+// 	function spotifyThisSong(songName) {
+// 		var songName = process.argv[3];
+// 		if(!songName){
+// 			songName = "The Sign";
+// 		}
+// 		params = songName;
+// 		spotify.search({ type: "track", query: params }, function(err, data) {
+// 			if(!err){
+// 				var songInfo = data.tracks.items;
+// 				for (var i = 0; i < 5; i++) {
+// 					if (songInfo[i] != undefined) {
+// 						var spotifyResults =
+// 						"Artist: " + songInfo[i].artists[0].name + "\r\n" +
+// 						"Song: " + songInfo[i].name + "\r\n" +
+// 						"Album the song is from: " + songInfo[i].album.name + "\r\n" +
+// 						"Preview Url: " + songInfo[i].preview_url + "\r\n" + 
+// 						"------------------------------ " + i + " ------------------------------" + "\r\n";
+// 						console.log(spotifyResults);
+// 						log(spotifyResults); // calling log function
+// 					}
+// 				}
+// 			}	else {
+// 				console.log("Error :"+ err);
+// 				return;
+// 			}
+// 		});
+// 	};
 
 	// / Do What It Says function, uses the reads and writes module to access the 
  //  /random.txt file and do what's written in it
