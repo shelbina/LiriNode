@@ -1,3 +1,5 @@
+console.log("Type a command: \nmy-tweets \nspotify-this-song \nmovie-this \ndo-what-it-says")
+
 ///require npm variables
 var keys = require("./keys.js");
 var fs = require("fs");
@@ -5,6 +7,7 @@ var liriArg = process.argv[2];
 var Twitter = require('twitter');
 var request = require('request');
 var Spotify = require('node-spotify-api');
+
 
 ///set liri commands
 switch(liriArg) {
@@ -55,23 +58,17 @@ function myTweets(){
 		if(!movie){
 			movie = "Mr. Nobody";
 		}
-		params = movie
-		request("http://www.omdbapi.com/?t=" + params + "&y=&plot=short&r=json&tomatoes=true", function (error, response, body) {
+		request("http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&r=json&tomatoes=true", function (error, response, body) {
 			if (!error && response.statusCode == 200) {
-				var movieObject = JSON.parse(body);
-				//console.log(movieObject); // Show the text in the terminal
-				var movieResults =
-				"------------------------------ begin ------------------------------" + "\r\n"
-				"Title: " + movieObject.Title+"\r\n"+
-				"Year: " + movieObject.Year+"\r\n"+
-				"Imdb Rating: " + movieObject.imdbRating+"\r\n"+
-				"Rotten Tomatoes Rating: " + movieObject.tomatoRating+"\r\n"+        
-				"Country: " + movieObject.Country+"\r\n"+
-				"Language: " + movieObject.Language+"\r\n"+
-				"Plot: " + movieObject.Plot+"\r\n"+
-				"Actors: " + movieObject.Actors+"\r\n"+
-				"Rotten Tomatoes URL: " + movieObject.tomatoURL + "\r\n" + 
-				"------------------------------ fin ------------------------------" + "\r\n";
+						movie = JSON.parse(body);
+						console.log("Movie Title: " + movie.Title);
+						console.log("Year of Release: " + movie.Year);
+						console.log("IMDB Rating: " + movie.imdbRating);
+						console.log(movie.Ratings[1].Source + " Rating: " + movie.Ratings[1].Value);
+						console.log("Produced in " + movie.Country);
+						console.log("Language(s): " + movie.Language);
+						console.log("Plot: " + movie.Plot);
+						console.log("Starring: " + movie.Actors);
 				console.log(movieResults);
 				log(movieResults); // calling log function
 			} else {
@@ -82,8 +79,8 @@ function myTweets(){
 	};
 ///install npm spotify keys
 var spotify = new Spotify({
-  spotify_id:  keys.spotifyKeys.SPOTIFY_CLIENT_ID,
-  spotify_secret: keys.spotifyKeys.SPOTIFY_CLIENT_SECRET,
+  spotify_id:'keys.spotifyKeys.SPOTIFY_CLIENT_ID',
+  spotify_secret:'keys.spotifyKeys.SPOTIFY_CLIENT_SECRET',
 });
 ///spotify-this-song  show song info in terminal/bash artist, 
 ///song name, preview link from spotify, song album, if no song default to "The Sign by Ace of Base"
@@ -115,8 +112,8 @@ var spotify = new Spotify({
 		});
 	};
 
-	/// Do What It Says function, uses the reads and writes module to access the 
-  ///random.txt file and do what's written in it
+	// / Do What It Says function, uses the reads and writes module to access the 
+ //  /random.txt file and do what's written in it
 	function doWhatItSays() {
 		fs.readFile("random.txt", "utf8", function(error, data){
 			if (!error) {
