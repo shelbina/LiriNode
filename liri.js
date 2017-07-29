@@ -82,33 +82,29 @@ var spotify = new Spotify({
 });
 ///spotify-this-song  show song info in terminal/bash artist, 
 ///song name, preview link from spotify, song album, if no song default to "The Sign by Ace of Base"
-	function spotifyThisSong(songName) {
-		var songName = process.argv[3];
-		if(songName === undefined){
-			songName = "The Sign";
+	function spotifyThisSong(){
+		var song = process.argv[3];
+		if(song === undefined){
+			song = "The Sign";
 		}
-		params = songName;
-		spotify.search({ type: "track", query: params }, function(err, data) {
-			if(!err){
-				var songInfo = data.tracks.items;
-				for (var i = 0; i < 5; i++) {
-					if (songInfo[i] != undefined) {
-						var spotifyResults =
-						"Artist: " + songInfo[i].artists[0].name + "\r\n" +
-						"Song: " + songInfo[i].name + "\r\n" +
-						"Album the song is from: " + songInfo[i].album.name + "\r\n" +
-						"Preview Url: " + songInfo[i].preview_url + "\r\n" + 
-						"------------------------------ " + i + " ------------------------------" + "\r\n";
-						console.log(spotifyResults);
-						log(spotifyResults); // calling log function
-					}
-				}
-			}	else {
-				console.log("Error :"+ err);
-				return;
-			}
-		});
-	};
+		if (song === process.argv[3]){}
+		spotify
+  		.search({
+				type: 'track',
+				query: song,
+				limit: 1
+			 })
+		
+			.then(function (response) {
+				console.log("Artist(s): " + response.tracks.items[0].artists[0].name);
+				console.log("Song Title: " + response.tracks.items[0].name);
+				console.log("Song Sample: " + response.tracks.items[0].preview_url);
+				console.log(response.tracks.items[0].album.name);
+  		})
+  		.catch(function(err) {
+    		console.log(err);
+  		});
+	}
 
 	// / Do What It Says function, uses the reads and writes module to access the 
  //  /random.txt file and do what's written in it
